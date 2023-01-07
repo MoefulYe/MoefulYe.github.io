@@ -1,1 +1,10 @@
-{}
+{
+  "templater-obsidian:_templates/_default.template": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "F12"
+    }
+  ]
+}

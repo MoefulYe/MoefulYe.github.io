@@ -1,6 +1,8 @@
+---
 title:
 draft: true
-date: {{date}}
+date: <% tp.date.now("YYYY-MM-DD") %>
 slug:
 tags: []
 categories: []
+---

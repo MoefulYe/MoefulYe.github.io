@@ -1,12 +1,9 @@
 ---
-title:
-draft: true
+title: test
 date: 2023-01-07
-slug:
 tags: ['test']
 categories: ['test']
 ---
-
 
 ```mermaid
 classDiagram
