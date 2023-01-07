@@ -5,6 +5,7 @@ tags: ['test']
 categories: ['test']
 ---
 
+
 ```mermaid
 classDiagram
     Animal <|-- Duck

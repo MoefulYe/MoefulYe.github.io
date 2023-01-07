@@ -11,12 +11,8 @@
             "id": "dc76ba339b5ab4ae",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "test.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -85,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "test.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "test.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -124,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "test.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -147,11 +139,11 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "dc76ba339b5ab4ae",
+  "active": "0fe78650a7e857b1",
   "lastOpenFiles": [
     "hello-world.md",
-    "_templates/_default.md",
     "test.md",
+    "_templates/_default.md",
     "编程/编程范式/未命名.md"
   ]
 }
