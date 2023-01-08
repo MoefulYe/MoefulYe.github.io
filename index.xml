@@ -1,4 +1,215 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>杂笔随记</title><link>https://moefulye.github.io/</link><description>Recent content on 杂笔随记</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Sat, 07 Jan 2023 16:26:19 +0800</lastBuildDate><atom:link href="https://moefulye.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Hello World</title><link>https://moefulye.github.io/p/hello-world/</link><pubDate>Sat, 07 Jan 2023 16:26:19 +0800</pubDate><guid>https://moefulye.github.io/p/hello-world/</guid><description>&lt;h2 id="hello-world">&lt;em>Hello World&lt;/em>&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>杂笔随记</title><link>https://moefulye.github.io/</link><description>Recent content on 杂笔随记</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Sun, 08 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://moefulye.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>uml类图与类的关系</title><link>https://moefulye.github.io/p/uml%E7%B1%BB%E5%9B%BE%E4%B8%8E%E7%B1%BB%E7%9A%84%E5%85%B3%E7%B3%BB/</link><pubDate>Sun, 08 Jan 2023 00:00:00 +0000</pubDate><guid>https://moefulye.github.io/p/uml%E7%B1%BB%E5%9B%BE%E4%B8%8E%E7%B1%BB%E7%9A%84%E5%85%B3%E7%B3%BB/</guid><description>&lt;h2 id="类的关系">类的关系&lt;/h2>
+&lt;div class="mermaid">flowchart LR
+关系 --接口与类之间-->实现关系
+a( )
+关系 -- 对象与对象之间 --> a
+b("泛化关系（is a）")
+a --> b
+a ---> f(关联关系)
+c("聚合关系(has a)")
+d("组合关系(contains a)")
+e("依赖关系(use a)")
+f --> c
+f --> d
+f --> e
+&lt;/div>
+&lt;h3 id="实现关系-implementation">实现关系 Implementation&lt;/h3>
+&lt;p>例 A类实现了XXX接口&lt;/p>
+&lt;h3 id="继承关系-inheritance">继承关系 Inheritance&lt;/h3>
+&lt;p>例 班长类是学生类的派生子类。&lt;/p>
+&lt;p>则班长类的一个实例对象 is a 学生类的实例对象&lt;/p>
+&lt;h3 id="关联关系-association">关联关系 Association&lt;/h3>
+&lt;p>简单的来说即一个对象或者类方法中持有另一个对象的引用、指针或对象本身&lt;/p>
+&lt;p>关联关系有单向关联和双向关联。如果两个对象都知道（即可以调用）对方的公共属性和操作，那么二者就是双向关联。如果只有一个对象知道（即可以调用）另一个对象的公共属性和操作，那么就是单向关联。
+多重关联一个对象可以持有其它对象的数组或者集合。&lt;/p>
+&lt;h3 id="依赖关系-dependency">依赖关系 Dependency&lt;/h3>
+&lt;p>如一个司机类的对象A调用开车方法需要一个汽车的引用B作为参数。那么说司机对象use a汽车对象。&lt;/p>
+&lt;p>弱关联关系。如果对象A用到对象B，但是和B的关系不是太明显的时候，就可以把这种关系看作是依赖关系。&lt;/p>
+&lt;p>依赖关系在Java中的具体代码表现形式为B为A的构造器或方法中的局部变量、方法或构造器的参数、方法的返回值，或者A调用B的静态方法。&lt;/p>
+&lt;h3 id="聚合关系-aggregation">聚合关系 Aggregation&lt;/h3>
+&lt;p>A对象持有B对象的所有权，但不一定是单一所有权。&lt;/p>
+&lt;p>例如，公司部门与员工的关系，一个员工可以属于多个部门，一个部门撤消了，员工可以转到其它部门。即部门对象 has 员工对象&lt;/p>
+&lt;h3 id="组合关系-composition">组合关系 Composition&lt;/h3>
+&lt;p>A对象持有B对象的单一所有权。A的生命周期覆盖B的生命周期。那么A contains B&lt;/p>
+&lt;h2 id="uml类图表示法">UML类图表示法&lt;/h2>
+&lt;h3 id="具体类">具体类&lt;/h3>
+&lt;h4 id="访问权限修饰符">访问权限修饰符&lt;/h4>
+&lt;ul>
+&lt;li>&lt;code>+&lt;/code> public&lt;/li>
+&lt;li>&lt;code>-&lt;/code> private&lt;/li>
+&lt;li>&lt;code>#&lt;/code> protected&lt;/li>
+&lt;li>不加修饰符默认为default&lt;/li>
+&lt;/ul>
+&lt;h4 id="静态成员表示">静态成员表示&lt;/h4>
+&lt;p>静态成员用下划线表示&lt;/p>
+&lt;h4 id="java">java&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">public&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">Dog&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">private&lt;/span> &lt;span class="kd">final&lt;/span> &lt;span class="n">String&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">protect&lt;/span> &lt;span class="kd">final&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">weight&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kd">final&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">static_member&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="n">age&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">public&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">speak&lt;/span>&lt;span class="o">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cm">/*
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> *code snippets
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">public&lt;/span> &lt;span class="n">String&lt;/span> &lt;span class="nf">getName&lt;/span>&lt;span class="o">(){&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">name&lt;/span>&lt;span class="o">;&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">public&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">setName&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">String&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">{&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">;&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">public&lt;/span> &lt;span class="kd">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">foo&lt;/span>&lt;span class="o">(){}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="uml">uml&lt;/h4>
+&lt;div class="mermaid">classDiagram
+class Dog{
+-String name
+#int weight
+int age
++int static_member$
++speak()
++getName() String
++setName(name: String)
++foo()$
+}
+&lt;/div>
+&lt;h3 id="抽象修饰符">抽象修饰符&lt;/h3>
+&lt;p>抽象方法和抽象类用斜体表示&lt;/p>
+&lt;h4 id="java-1">java&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">public&lt;/span> &lt;span class="kd">abstract&lt;/span> &lt;span class="kd">class&lt;/span> &lt;span class="nc">Base&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="n">member&lt;/span>&lt;span class="o">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">public&lt;/span> &lt;span class="kd">abstract&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">foo&lt;/span>&lt;span class="o">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="uml-1">uml&lt;/h4>
+&lt;p>注: mermaid里的抽象类用 &lt;code>&amp;lt;&amp;lt;abstract&amp;gt;&amp;gt;&lt;/code>表示&lt;/p>
+&lt;div class="mermaid">classDiagram
+class Base {
+&amp;lt;&amp;lt;abstract&amp;gt;&amp;gt;
+int member
++foo()*
+}
+&lt;/div>
+&lt;h3 id="接口枚举">接口、枚举&lt;/h3>
+&lt;p>接口用&lt;code>&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/code>表示，枚举用&lt;code>&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/code>表示&lt;/p>
+&lt;h4 id="uml-2">uml&lt;/h4>
+&lt;div class="mermaid">classDiagram
+class Shape{
+&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;
+noOfVertices
+draw()
+}
+class Color{
+&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;
+RED
+BLUE
+GREEN
+WHITE
+BLACK
+}
+&lt;/div>
+&lt;h3 id="泛型">泛型&lt;/h3>
+&lt;h4 id="uml-3">uml&lt;/h4>
+&lt;div class="mermaid">classDiagram
+class Square~Shape~{
+int id
+List~int~ position
+setPoints(List~int~ points)
+getPoints() List~int~
+}
+Square : -List~string~ messages
+Square : +setMessages(List~string~ messages)
+Square : +getMessages() List~string~
+&lt;/div>
+&lt;h3 id="类的关系表示法">类的关系表示法&lt;/h3>
+&lt;h4 id="继承">继承&lt;/h4>
+&lt;div class="mermaid">classDiagram
+A --|> B : A继承自B
+&lt;/div>
+&lt;h4 id="实现">实现&lt;/h4>
+&lt;div class="mermaid">classDiagram
+A ..|> B :A实现了B接口
+&lt;/div>
+&lt;h4 id="关联">关联&lt;/h4>
+&lt;ul>
+&lt;li>单向关联&lt;/li>
+&lt;/ul>
+&lt;div class="mermaid">classDiagram
+A --> B :A知道B
+&lt;/div>
+&lt;ul>
+&lt;li>双向关联&lt;/li>
+&lt;/ul>
+&lt;div class="mermaid">classDiagram
+A &lt;--> B :AB互相知道对方
+&lt;/div>
+&lt;ul>
+&lt;li>多重关联&lt;/li>
+&lt;/ul>
+&lt;p>在UML中，通过放置多重性（multipicity）表达式在关联线的末端来表示。多重性表达式可以是一个数字、一段范围或者是它们的组合。&lt;/p>
+&lt;ol>
+&lt;li>数字：精确的数量&lt;/li>
+&lt;li>&lt;code>*&lt;/code>或者&lt;code>0..*&lt;/code>：表示0到多个&lt;/li>
+&lt;li>&lt;code>0..1&lt;/code>：表示0或者1个，在Java中经常用一个空引用来实现&lt;/li>
+&lt;li>&lt;code>1..*&lt;/code>：表示1到多个&lt;/li>
+&lt;/ol>
+&lt;div class="mermaid">classDiagram
+Class "1" --> "0..**" Student :一个班有n个学生
+&lt;/div>
+&lt;h4 id="依赖">依赖&lt;/h4>
+&lt;div class="mermaid">classDiagram
+A ..> B : A依赖B
+&lt;/div>
+&lt;h4 id="聚合">聚合&lt;/h4>
+&lt;div class="mermaid">classDiagram
+A --o B :A有B
+&lt;/div>
+&lt;h4 id="组合">组合&lt;/h4>
+&lt;div class="mermaid">classDiagram
+A --* B :B是A的构成部分
+&lt;/div></description></item><item><title>面对对象</title><link>https://moefulye.github.io/p/%E9%9D%A2%E5%AF%B9%E5%AF%B9%E8%B1%A1/</link><pubDate>Sun, 08 Jan 2023 00:00:00 +0000</pubDate><guid>https://moefulye.github.io/p/%E9%9D%A2%E5%AF%B9%E5%AF%B9%E8%B1%A1/</guid><description>&lt;h2 id="三个基本特征">三个基本特征&lt;/h2>
+&lt;ul>
+&lt;li>封装 Encapsulation&lt;/li>
+&lt;li>继承 Inheritance&lt;/li>
+&lt;li>多态 Polymorphism&lt;/li>
+&lt;/ul>
+&lt;h2 id="关键词">关键词&lt;/h2>
+&lt;ul>
+&lt;li>重载&lt;/li>
+&lt;li>重写&lt;/li>
+&lt;li>接口 抽象类&lt;/li>
+&lt;/ul>
+&lt;h2 id="类的关系与uml类图">[[类的关系与UML类图]]&lt;/h2></description></item><item><title>Hello World</title><link>https://moefulye.github.io/p/hello-world/</link><pubDate>Sat, 07 Jan 2023 16:26:19 +0800</pubDate><guid>https://moefulye.github.io/p/hello-world/</guid><description>&lt;h2 id="hello-world">&lt;em>Hello World&lt;/em>&lt;/h2>
 &lt;h3 id="成功公式">成功公式&lt;/h3>
 &lt;p>$编程= 爱 \times 狂想 \times 红色\times 躬行$&lt;/p>
 &lt;hr>
