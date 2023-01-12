@@ -1,0 +1,15 @@
+---
+title:
+description:
+draft: true
+date: <% tp.date.now("YYYY-MM-DD") %>
+tags: []
+categories: []
+---
+## 定义
+## 类图
+```mermaid
+```
+## c++实现
+## 效果
+## 例子
