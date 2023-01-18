@@ -1,0 +1,366 @@
+<!doctype html><html lang dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="定义 将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。 使用多个小型工厂一步步构建出一个复杂对象 类图 classDiagram class Director { +Constructor(builder: Builder) } class Builder { &amp;lt;&amp;lt;interface&amp;gt;&amp;gt; +buildPart1()* +buildPart2()* +build()*Product } class ConcreteBuilder { +buildPart1() +buildPart2() +build():Product } class Product Director o--> Builder ConcreteBuilder ..|> Builder ConcreteBuilder ..> Product Director 提供构建算法 c++实现 一个简单实现 使用链式调用非传统实现 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 #include &amp;lt;iostream&amp;gt; #include &amp;lt;string&amp;gt; using namespace std; class Computer { private: string _cpu; string _ram; string _hdd; string _gpu; string _ssd; public: class ComputerBuilder { private: Computer *_computer; public: ComputerBuilder(string cpu, string ram) { _computer = new Computer(cpu, ram); } ComputerBuilder &amp;amp;set_hdd(string hdd) { _computer-&amp;gt;set_hdd(hdd); return *this; } ComputerBuilder &amp;amp;set_gpu(string gpu) { _computer-&amp;gt;set_gpu(gpu); return *this; } ComputerBuilder &amp;amp;set_ssd(string ssd) { _computer-&amp;gt;set_ssd(ssd); return *this; } Computer *build() { return _computer; } }; Computer(string cpu, string ram) : _hdd(&amp;#34;&amp;#34;), _gpu(&amp;#34;&amp;#34;), _ssd(&amp;#34;&amp;#34;) { _cpu = cpu; _ram = ram; } string cpu() { return _cpu; } string ram() { return _ram; } string hdd() { return _hdd; } string gpu() { return _gpu; } string ssd() { return _ssd; } void set_cpu(string cpu) { _cpu = cpu; } void set_ram(string ram) { _ram = ram; } void set_hdd(string hdd) { _hdd = hdd; } void set_gpu(string gpu) { _gpu = gpu; } void set_ssd(string ssd) { _ssd = ssd; } void show() { cout &amp;lt;&amp;lt; &amp;#34;CPU: &amp;#34; &amp;lt;&amp;lt; _cpu &amp;lt;&amp;lt; endl; cout &amp;lt;&amp;lt; &amp;#34;RAM: &amp;#34; &amp;lt;&amp;lt; _ram &amp;lt;&amp;lt; endl; cout &amp;lt;&amp;lt; &amp;#34;HDD: &amp;#34; &amp;lt;&amp;lt; _hdd &amp;lt;&amp;lt; endl; cout &amp;lt;&amp;lt; &amp;#34;GPU: &amp;#34; &amp;lt;&amp;lt; _gpu &amp;lt;&amp;lt; endl; cout &amp;lt;&amp;lt; &amp;#34;SSD: &amp;#34; &amp;lt;&amp;lt; _ssd &amp;lt;&amp;lt; endl; } }; int main() { Computer *pc = Computer::ComputerBuilder(&amp;#34;i7&amp;#34;, &amp;#34;16GB&amp;#34;) ."><title>生成器模式</title><link rel=canonical href=https://moefulye.github.io/p/%E7%94%9F%E6%88%90%E5%99%A8%E6%A8%A1%E5%BC%8F/><link rel=stylesheet href=/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css><meta property="og:title" content="生成器模式"><meta property="og:description" content="定义 将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。 使用多个小型工厂一步步构建出一个复杂对象 类图 classDiagram class Director { +Constructor(builder: Builder) } class Builder { &amp;lt;&amp;lt;interface&amp;gt;&amp;gt; +buildPart1()* +buildPart2()* +build()*Product } class ConcreteBuilder { +buildPart1() +buildPart2() +build():Product } class Product Director o--> Builder ConcreteBuilder ..|> Builder ConcreteBuilder ..> Product Director 提供构建算法 c++实现 一个简单实现 使用链式调用非传统实现 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 #include &amp;lt;iostream&amp;gt; #include &amp;lt;string&amp;gt; using namespace std; class Computer { private: string _cpu; string _ram; string _hdd; string _gpu; string _ssd; public: class ComputerBuilder { private: Computer *_computer; public: ComputerBuilder(string cpu, string ram) { _computer = new Computer(cpu, ram); } ComputerBuilder &amp;amp;set_hdd(string hdd) { _computer-&amp;gt;set_hdd(hdd); return *this; } ComputerBuilder &amp;amp;set_gpu(string gpu) { _computer-&amp;gt;set_gpu(gpu); return *this; } ComputerBuilder &amp;amp;set_ssd(string ssd) { _computer-&amp;gt;set_ssd(ssd); return *this; } Computer *build() { return _computer; } }; Computer(string cpu, string ram) : _hdd(&amp;#34;&amp;#34;), _gpu(&amp;#34;&amp;#34;), _ssd(&amp;#34;&amp;#34;) { _cpu = cpu; _ram = ram; } string cpu() { return _cpu; } string ram() { return _ram; } string hdd() { return _hdd; } string gpu() { return _gpu; } string ssd() { return _ssd; } void set_cpu(string cpu) { _cpu = cpu; } void set_ram(string ram) { _ram = ram; } void set_hdd(string hdd) { _hdd = hdd; } void set_gpu(string gpu) { _gpu = gpu; } void set_ssd(string ssd) { _ssd = ssd; } void show() { cout &amp;lt;&amp;lt; &amp;#34;CPU: &amp;#34; &amp;lt;&amp;lt; _cpu &amp;lt;&amp;lt; endl; cout &amp;lt;&amp;lt; &amp;#34;RAM: &amp;#34; &amp;lt;&amp;lt; _ram &amp;lt;&amp;lt; endl; cout &amp;lt;&amp;lt; &amp;#34;HDD: &amp;#34; &amp;lt;&amp;lt; _hdd &amp;lt;&amp;lt; endl; cout &amp;lt;&amp;lt; &amp;#34;GPU: &amp;#34; &amp;lt;&amp;lt; _gpu &amp;lt;&amp;lt; endl; cout &amp;lt;&amp;lt; &amp;#34;SSD: &amp;#34; &amp;lt;&amp;lt; _ssd &amp;lt;&amp;lt; endl; } }; int main() { Computer *pc = Computer::ComputerBuilder(&amp;#34;i7&amp;#34;, &amp;#34;16GB&amp;#34;) ."><meta property="og:url" content="https://moefulye.github.io/p/%E7%94%9F%E6%88%90%E5%99%A8%E6%A8%A1%E5%BC%8F/"><meta property="og:site_name" content="杂笔随记"><meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="面对对象"><meta property="article:tag" content="设计模式"><meta property="article:published_time" content="2023-01-12T00:00:00+00:00"><meta property="article:modified_time" content="2023-01-12T00:00:00+00:00"><meta name=twitter:title content="生成器模式"><meta name=twitter:description content="定义 将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。 使用多个小型工厂一步步构建出一个复杂对象 类图 classDiagram class Director { +Constructor(builder: Builder) } class Builder { &amp;lt;&amp;lt;interface&amp;gt;&amp;gt; +buildPart1()* +buildPart2()* +build()*Product } class ConcreteBuilder { +buildPart1() +buildPart2() +build():Product } class Product Director o--> Builder ConcreteBuilder ..|> Builder ConcreteBuilder ..> Product Director 提供构建算法 c++实现 一个简单实现 使用链式调用非传统实现 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 #include &amp;lt;iostream&amp;gt; #include &amp;lt;string&amp;gt; using namespace std; class Computer { private: string _cpu; string _ram; string _hdd; string _gpu; string _ssd; public: class ComputerBuilder { private: Computer *_computer; public: ComputerBuilder(string cpu, string ram) { _computer = new Computer(cpu, ram); } ComputerBuilder &amp;amp;set_hdd(string hdd) { _computer-&amp;gt;set_hdd(hdd); return *this; } ComputerBuilder &amp;amp;set_gpu(string gpu) { _computer-&amp;gt;set_gpu(gpu); return *this; } ComputerBuilder &amp;amp;set_ssd(string ssd) { _computer-&amp;gt;set_ssd(ssd); return *this; } Computer *build() { return _computer; } }; Computer(string cpu, string ram) : _hdd(&amp;#34;&amp;#34;), _gpu(&amp;#34;&amp;#34;), _ssd(&amp;#34;&amp;#34;) { _cpu = cpu; _ram = ram; } string cpu() { return _cpu; } string ram() { return _ram; } string hdd() { return _hdd; } string gpu() { return _gpu; } string ssd() { return _ssd; } void set_cpu(string cpu) { _cpu = cpu; } void set_ram(string ram) { _ram = ram; } void set_hdd(string hdd) { _hdd = hdd; } void set_gpu(string gpu) { _gpu = gpu; } void set_ssd(string ssd) { _ssd = ssd; } void show() { cout &amp;lt;&amp;lt; &amp;#34;CPU: &amp;#34; &amp;lt;&amp;lt; _cpu &amp;lt;&amp;lt; endl; cout &amp;lt;&amp;lt; &amp;#34;RAM: &amp;#34; &amp;lt;&amp;lt; _ram &amp;lt;&amp;lt; endl; cout &amp;lt;&amp;lt; &amp;#34;HDD: &amp;#34; &amp;lt;&amp;lt; _hdd &amp;lt;&amp;lt; endl; cout &amp;lt;&amp;lt; &amp;#34;GPU: &amp;#34; &amp;lt;&amp;lt; _gpu &amp;lt;&amp;lt; endl; cout &amp;lt;&amp;lt; &amp;#34;SSD: &amp;#34; &amp;lt;&amp;lt; _ssd &amp;lt;&amp;lt; endl; } }; int main() { Computer *pc = Computer::ComputerBuilder(&amp;#34;i7&amp;#34;, &amp;#34;16GB&amp;#34;) ."><link rel="shortcut icon" href=/favicon.ico></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_huc6ef156a612757730bea713b934db572_7298_300x0_resize_q75_box.jpg width=300 height=300 class=site-logo loading=lazy alt=Avatar></a></figure><div class=site-meta><h1 class=site-name><a href=/>杂笔随记</a></h1><h2 class=site-description>爱 狂想 红色 躬行</h2></div></header><ol class=social-menu><li><a href=https://github.com/MoefulYe target=_blank title=GitHub rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg><span>Home</span></a></li><li><a href=/about/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg><span>About</span></a></li><li><a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg><span>Archives</span></a></li><li><a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg><span>Search</span></a></li><div class=menu-bottom-section><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><span>Dark Mode</span></li></div></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">Table of contents</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#定义>定义</a></li><li><a href=#类图>类图</a></li><li><a href=#c实现>c++实现</a><ol><li><a href=#一个简单实现>一个简单实现</a></li><li><a href=#使用director的传统实现>使用Director的传统实现</a></li></ol></li><li><a href=#效果>效果</a></li><li><a href=#例子>例子</a></li></ol></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/%E9%9D%A2%E5%AF%B9%E5%AF%B9%E8%B1%A1/>面对对象</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/%E7%94%9F%E6%88%90%E5%99%A8%E6%A8%A1%E5%BC%8F/>生成器模式</a></h2></div><footer class=article-time><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg><time class=article-time--published>2023-01-12</time></div><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg><time class=article-time--reading>4 minute read</time></div></footer></div></header><section class=article-content><h2 id=定义>定义</h2><blockquote><p><em>将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。</em></p></blockquote><p>使用多个小型工厂一步步构建出一个复杂对象</p><h2 id=类图>类图</h2><div class=mermaid>classDiagram
+class Director {
++Constructor(builder: Builder)
+}
+class Builder {
+&lt;&lt;interface>>
++buildPart1()*
++buildPart2()*
++build()*Product
+}
+class ConcreteBuilder {
++buildPart1()
++buildPart2()
++build():Product
+}
+class Product
+Director o--> Builder
+ConcreteBuilder ..|> Builder
+ConcreteBuilder ..> Product</div><ul><li>Director 提供构建算法</li></ul><h2 id=c实现>c++实现</h2><h3 id=一个简单实现>一个简单实现</h3><p>使用链式调用非传统实现</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;iostream&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;string&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp></span>
+</span></span><span class=line><span class=cl><span class=k>using</span> <span class=k>namespace</span> <span class=n>std</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Computer</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=k>private</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>  <span class=n>string</span> <span class=n>_cpu</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=n>string</span> <span class=n>_ram</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=n>string</span> <span class=n>_hdd</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=n>string</span> <span class=n>_gpu</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=n>string</span> <span class=n>_ssd</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>public</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>  <span class=k>class</span> <span class=nc>ComputerBuilder</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>private</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>Computer</span> <span class=o>*</span><span class=n>_computer</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>public</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>ComputerBuilder</span><span class=p>(</span><span class=n>string</span> <span class=n>cpu</span><span class=p>,</span> <span class=n>string</span> <span class=n>ram</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=n>_computer</span> <span class=o>=</span> <span class=k>new</span> <span class=n>Computer</span><span class=p>(</span><span class=n>cpu</span><span class=p>,</span> <span class=n>ram</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=n>ComputerBuilder</span> <span class=o>&amp;</span><span class=n>set_hdd</span><span class=p>(</span><span class=n>string</span> <span class=n>hdd</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=n>_computer</span><span class=o>-&gt;</span><span class=n>set_hdd</span><span class=p>(</span><span class=n>hdd</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>      <span class=k>return</span> <span class=o>*</span><span class=k>this</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=n>ComputerBuilder</span> <span class=o>&amp;</span><span class=n>set_gpu</span><span class=p>(</span><span class=n>string</span> <span class=n>gpu</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=n>_computer</span><span class=o>-&gt;</span><span class=n>set_gpu</span><span class=p>(</span><span class=n>gpu</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>      <span class=k>return</span> <span class=o>*</span><span class=k>this</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=n>ComputerBuilder</span> <span class=o>&amp;</span><span class=n>set_ssd</span><span class=p>(</span><span class=n>string</span> <span class=n>ssd</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=n>_computer</span><span class=o>-&gt;</span><span class=n>set_ssd</span><span class=p>(</span><span class=n>ssd</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>      <span class=k>return</span> <span class=o>*</span><span class=k>this</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=n>Computer</span> <span class=o>*</span><span class=nf>build</span><span class=p>()</span> <span class=p>{</span> <span class=k>return</span> <span class=n>_computer</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>};</span>
+</span></span><span class=line><span class=cl>  <span class=n>Computer</span><span class=p>(</span><span class=n>string</span> <span class=n>cpu</span><span class=p>,</span> <span class=n>string</span> <span class=n>ram</span><span class=p>)</span> <span class=o>:</span> <span class=n>_hdd</span><span class=p>(</span><span class=s>&#34;&#34;</span><span class=p>),</span> <span class=n>_gpu</span><span class=p>(</span><span class=s>&#34;&#34;</span><span class=p>),</span> <span class=n>_ssd</span><span class=p>(</span><span class=s>&#34;&#34;</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>_cpu</span> <span class=o>=</span> <span class=n>cpu</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>_ram</span> <span class=o>=</span> <span class=n>ram</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=n>string</span> <span class=nf>cpu</span><span class=p>()</span> <span class=p>{</span> <span class=k>return</span> <span class=n>_cpu</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=n>string</span> <span class=nf>ram</span><span class=p>()</span> <span class=p>{</span> <span class=k>return</span> <span class=n>_ram</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=n>string</span> <span class=nf>hdd</span><span class=p>()</span> <span class=p>{</span> <span class=k>return</span> <span class=n>_hdd</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=n>string</span> <span class=nf>gpu</span><span class=p>()</span> <span class=p>{</span> <span class=k>return</span> <span class=n>_gpu</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=n>string</span> <span class=nf>ssd</span><span class=p>()</span> <span class=p>{</span> <span class=k>return</span> <span class=n>_ssd</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=nf>set_cpu</span><span class=p>(</span><span class=n>string</span> <span class=n>cpu</span><span class=p>)</span> <span class=p>{</span> <span class=n>_cpu</span> <span class=o>=</span> <span class=n>cpu</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=nf>set_ram</span><span class=p>(</span><span class=n>string</span> <span class=n>ram</span><span class=p>)</span> <span class=p>{</span> <span class=n>_ram</span> <span class=o>=</span> <span class=n>ram</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=nf>set_hdd</span><span class=p>(</span><span class=n>string</span> <span class=n>hdd</span><span class=p>)</span> <span class=p>{</span> <span class=n>_hdd</span> <span class=o>=</span> <span class=n>hdd</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=nf>set_gpu</span><span class=p>(</span><span class=n>string</span> <span class=n>gpu</span><span class=p>)</span> <span class=p>{</span> <span class=n>_gpu</span> <span class=o>=</span> <span class=n>gpu</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=nf>set_ssd</span><span class=p>(</span><span class=n>string</span> <span class=n>ssd</span><span class=p>)</span> <span class=p>{</span> <span class=n>_ssd</span> <span class=o>=</span> <span class=n>ssd</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=nf>show</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;CPU: &#34;</span> <span class=o>&lt;&lt;</span> <span class=n>_cpu</span> <span class=o>&lt;&lt;</span> <span class=n>endl</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;RAM: &#34;</span> <span class=o>&lt;&lt;</span> <span class=n>_ram</span> <span class=o>&lt;&lt;</span> <span class=n>endl</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;HDD: &#34;</span> <span class=o>&lt;&lt;</span> <span class=n>_hdd</span> <span class=o>&lt;&lt;</span> <span class=n>endl</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;GPU: &#34;</span> <span class=o>&lt;&lt;</span> <span class=n>_gpu</span> <span class=o>&lt;&lt;</span> <span class=n>endl</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;SSD: &#34;</span> <span class=o>&lt;&lt;</span> <span class=n>_ssd</span> <span class=o>&lt;&lt;</span> <span class=n>endl</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=n>Computer</span> <span class=o>*</span><span class=n>pc</span> <span class=o>=</span> <span class=n>Computer</span><span class=o>::</span><span class=n>ComputerBuilder</span><span class=p>(</span><span class=s>&#34;i7&#34;</span><span class=p>,</span> <span class=s>&#34;16GB&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                     <span class=p>.</span><span class=n>set_gpu</span><span class=p>(</span><span class=s>&#34;GTX 1080&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                     <span class=p>.</span><span class=n>set_ssd</span><span class=p>(</span><span class=s>&#34;512GB&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                     <span class=p>.</span><span class=n>build</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>  <span class=n>pc</span><span class=o>-&gt;</span><span class=n>show</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=使用director的传统实现>使用Director的传统实现</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;iostream&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;string&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp></span>
+</span></span><span class=line><span class=cl><span class=k>using</span> <span class=k>namespace</span> <span class=n>std</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Computer</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=k>private</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>  <span class=n>string</span> <span class=n>_cpu</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=n>string</span> <span class=n>_ram</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=n>string</span> <span class=n>_hdd</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=n>string</span> <span class=n>_gpu</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=n>string</span> <span class=n>_ssd</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>public</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>  <span class=n>Computer</span><span class=p>(</span><span class=n>string</span> <span class=n>cpu</span><span class=p>,</span> <span class=n>string</span> <span class=n>ram</span><span class=p>)</span> <span class=o>:</span> <span class=n>_hdd</span><span class=p>(</span><span class=s>&#34;&#34;</span><span class=p>),</span> <span class=n>_gpu</span><span class=p>(</span><span class=s>&#34;&#34;</span><span class=p>),</span> <span class=n>_ssd</span><span class=p>(</span><span class=s>&#34;&#34;</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>_cpu</span> <span class=o>=</span> <span class=n>cpu</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>_ram</span> <span class=o>=</span> <span class=n>ram</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=n>string</span> <span class=nf>cpu</span><span class=p>()</span> <span class=p>{</span> <span class=k>return</span> <span class=n>_cpu</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=n>string</span> <span class=nf>ram</span><span class=p>()</span> <span class=p>{</span> <span class=k>return</span> <span class=n>_ram</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=n>string</span> <span class=nf>hdd</span><span class=p>()</span> <span class=p>{</span> <span class=k>return</span> <span class=n>_hdd</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=n>string</span> <span class=nf>gpu</span><span class=p>()</span> <span class=p>{</span> <span class=k>return</span> <span class=n>_gpu</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=n>string</span> <span class=nf>ssd</span><span class=p>()</span> <span class=p>{</span> <span class=k>return</span> <span class=n>_ssd</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=nf>set_cpu</span><span class=p>(</span><span class=n>string</span> <span class=n>cpu</span><span class=p>)</span> <span class=p>{</span> <span class=n>_cpu</span> <span class=o>=</span> <span class=n>cpu</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=nf>set_ram</span><span class=p>(</span><span class=n>string</span> <span class=n>ram</span><span class=p>)</span> <span class=p>{</span> <span class=n>_ram</span> <span class=o>=</span> <span class=n>ram</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=nf>set_hdd</span><span class=p>(</span><span class=n>string</span> <span class=n>hdd</span><span class=p>)</span> <span class=p>{</span> <span class=n>_hdd</span> <span class=o>=</span> <span class=n>hdd</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=nf>set_gpu</span><span class=p>(</span><span class=n>string</span> <span class=n>gpu</span><span class=p>)</span> <span class=p>{</span> <span class=n>_gpu</span> <span class=o>=</span> <span class=n>gpu</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=nf>set_ssd</span><span class=p>(</span><span class=n>string</span> <span class=n>ssd</span><span class=p>)</span> <span class=p>{</span> <span class=n>_ssd</span> <span class=o>=</span> <span class=n>ssd</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=nf>show</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;CPU: &#34;</span> <span class=o>&lt;&lt;</span> <span class=n>_cpu</span> <span class=o>&lt;&lt;</span> <span class=n>endl</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;RAM: &#34;</span> <span class=o>&lt;&lt;</span> <span class=n>_ram</span> <span class=o>&lt;&lt;</span> <span class=n>endl</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;HDD: &#34;</span> <span class=o>&lt;&lt;</span> <span class=n>_hdd</span> <span class=o>&lt;&lt;</span> <span class=n>endl</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;GPU: &#34;</span> <span class=o>&lt;&lt;</span> <span class=n>_gpu</span> <span class=o>&lt;&lt;</span> <span class=n>endl</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;SSD: &#34;</span> <span class=o>&lt;&lt;</span> <span class=n>_ssd</span> <span class=o>&lt;&lt;</span> <span class=n>endl</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Builder</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=k>public</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>  <span class=k>virtual</span> <span class=kt>void</span> <span class=n>build_cpu</span><span class=p>(){};</span>
+</span></span><span class=line><span class=cl>  <span class=k>virtual</span> <span class=kt>void</span> <span class=nf>build_ram</span><span class=p>(){};</span>
+</span></span><span class=line><span class=cl>  <span class=k>virtual</span> <span class=kt>void</span> <span class=nf>build_hdd</span><span class=p>(){};</span>
+</span></span><span class=line><span class=cl>  <span class=k>virtual</span> <span class=kt>void</span> <span class=nf>build_gpu</span><span class=p>(){};</span>
+</span></span><span class=line><span class=cl>  <span class=k>virtual</span> <span class=kt>void</span> <span class=nf>build_ssd</span><span class=p>(){};</span>
+</span></span><span class=line><span class=cl>  <span class=k>virtual</span> <span class=n>Computer</span> <span class=o>*</span><span class=nf>build</span><span class=p>()</span> <span class=p>{</span> <span class=k>return</span> <span class=k>nullptr</span><span class=p>;</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>MacbookBuilder</span> <span class=o>:</span> <span class=k>public</span> <span class=n>Builder</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=k>private</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>  <span class=n>Computer</span> <span class=o>*</span><span class=n>_computer</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>public</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>  <span class=n>MacbookBuilder</span><span class=p>(</span><span class=n>string</span> <span class=n>cpu</span><span class=p>,</span> <span class=n>string</span> <span class=n>ram</span><span class=p>)</span> <span class=p>{</span> <span class=n>_computer</span> <span class=o>=</span> <span class=k>new</span> <span class=n>Computer</span><span class=p>(</span><span class=n>cpu</span><span class=p>,</span> <span class=n>ram</span><span class=p>);</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=nf>build_cpu</span><span class=p>()</span> <span class=k>override</span> <span class=p>{</span> <span class=n>_computer</span><span class=o>-&gt;</span><span class=n>set_cpu</span><span class=p>(</span><span class=s>&#34;m1&#34;</span><span class=p>);</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=nf>build_ram</span><span class=p>()</span> <span class=k>override</span> <span class=p>{</span> <span class=n>_computer</span><span class=o>-&gt;</span><span class=n>set_ram</span><span class=p>(</span><span class=s>&#34;16GB&#34;</span><span class=p>);</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=nf>build_hdd</span><span class=p>()</span> <span class=k>override</span> <span class=p>{</span> <span class=n>_computer</span><span class=o>-&gt;</span><span class=n>set_hdd</span><span class=p>(</span><span class=s>&#34;1TB&#34;</span><span class=p>);</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=nf>build_gpu</span><span class=p>()</span> <span class=k>override</span> <span class=p>{</span> <span class=n>_computer</span><span class=o>-&gt;</span><span class=n>set_gpu</span><span class=p>(</span><span class=s>&#34;m1&#34;</span><span class=p>);</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=nf>build_ssd</span><span class=p>()</span> <span class=k>override</span> <span class=p>{</span> <span class=n>_computer</span><span class=o>-&gt;</span><span class=n>set_ssd</span><span class=p>(</span><span class=s>&#34;512GB&#34;</span><span class=p>);</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=n>Computer</span> <span class=o>*</span><span class=nf>build</span><span class=p>()</span> <span class=k>override</span> <span class=p>{</span> <span class=k>return</span> <span class=n>_computer</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>LenovoBuilder</span> <span class=o>:</span> <span class=k>public</span> <span class=n>Builder</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=k>private</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>  <span class=n>Computer</span> <span class=o>*</span><span class=n>_computer</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>public</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>  <span class=n>LenovoBuilder</span><span class=p>(</span><span class=n>string</span> <span class=n>cpu</span><span class=p>,</span> <span class=n>string</span> <span class=n>ram</span><span class=p>)</span> <span class=p>{</span> <span class=n>_computer</span> <span class=o>=</span> <span class=k>new</span> <span class=n>Computer</span><span class=p>(</span><span class=n>cpu</span><span class=p>,</span> <span class=n>ram</span><span class=p>);</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=nf>build_cpu</span><span class=p>()</span> <span class=k>override</span> <span class=p>{</span> <span class=n>_computer</span><span class=o>-&gt;</span><span class=n>set_cpu</span><span class=p>(</span><span class=s>&#34;i7&#34;</span><span class=p>);</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=nf>build_ram</span><span class=p>()</span> <span class=k>override</span> <span class=p>{</span> <span class=n>_computer</span><span class=o>-&gt;</span><span class=n>set_ram</span><span class=p>(</span><span class=s>&#34;8GB&#34;</span><span class=p>);</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=nf>build_hdd</span><span class=p>()</span> <span class=k>override</span> <span class=p>{</span> <span class=n>_computer</span><span class=o>-&gt;</span><span class=n>set_hdd</span><span class=p>(</span><span class=s>&#34;1TB&#34;</span><span class=p>);</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=nf>build_gpu</span><span class=p>()</span> <span class=k>override</span> <span class=p>{</span> <span class=n>_computer</span><span class=o>-&gt;</span><span class=n>set_gpu</span><span class=p>(</span><span class=s>&#34;Nvidia&#34;</span><span class=p>);</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=nf>build_ssd</span><span class=p>()</span> <span class=k>override</span> <span class=p>{</span> <span class=n>_computer</span><span class=o>-&gt;</span><span class=n>set_ssd</span><span class=p>(</span><span class=s>&#34;256GB&#34;</span><span class=p>);</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=n>Computer</span> <span class=o>*</span><span class=nf>build</span><span class=p>()</span> <span class=k>override</span> <span class=p>{</span> <span class=k>return</span> <span class=n>_computer</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Director</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=k>public</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>  <span class=n>Computer</span> <span class=o>*</span><span class=n>make</span><span class=p>(</span><span class=n>Builder</span> <span class=o>*</span><span class=n>builder</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>builder</span><span class=o>-&gt;</span><span class=n>build_cpu</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=n>builder</span><span class=o>-&gt;</span><span class=n>build_ram</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=n>builder</span><span class=o>-&gt;</span><span class=n>build_hdd</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=n>builder</span><span class=o>-&gt;</span><span class=n>build_gpu</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=n>builder</span><span class=o>-&gt;</span><span class=n>build_ssd</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>builder</span><span class=o>-&gt;</span><span class=n>build</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=n>Director</span> <span class=n>director</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=n>MacbookBuilder</span> <span class=n>macbook_builder</span><span class=p>(</span><span class=s>&#34;i5&#34;</span><span class=p>,</span> <span class=s>&#34;8GB&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=n>LenovoBuilder</span> <span class=n>lenovo_builder</span><span class=p>(</span><span class=s>&#34;i7&#34;</span><span class=p>,</span> <span class=s>&#34;16GB&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=n>Computer</span> <span class=o>*</span><span class=n>macbook</span> <span class=o>=</span> <span class=n>director</span><span class=p>.</span><span class=n>make</span><span class=p>(</span><span class=o>&amp;</span><span class=n>macbook_builder</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=n>Computer</span> <span class=o>*</span><span class=n>lenovo</span> <span class=o>=</span> <span class=n>director</span><span class=p>.</span><span class=n>make</span><span class=p>(</span><span class=o>&amp;</span><span class=n>lenovo_builder</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=n>macbook</span><span class=o>-&gt;</span><span class=n>show</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>  <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=n>endl</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=n>lenovo</span><span class=o>-&gt;</span><span class=n>show</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=效果>效果</h2><ul><li>它使你可以改变一个产品的内部表示</li><li>它将构造代码和表示代码分开</li><li>它使你可对构造过程进行更精细的控制</li></ul><h2 id=例子>例子</h2><p>StringBuilder类</p></section><script src=https://cdn.jsdelivr.net/npm/mermaid@9.3.0/dist/mermaid.min.js></script>
+<script>mermaid.initialize({startOnLoad:!0})</script><footer class=article-footer><section class=article-tags><a href=/tags/%E9%9D%A2%E5%AF%B9%E5%AF%B9%E8%B1%A1/>面对对象</a>
+<a href=/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/>设计模式</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg><span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>Related content</h2><div class=related-content><div class="flex article-list--tile"><article><a href=/p/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/><div class=article-details><h2 class=article-title>中介者模式</h2></div></a></article><article><a href=/p/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F/><div class=article-details><h2 class=article-title>备忘录模式</h2></div></a></article><article><a href=/p/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/><div class=article-details><h2 class=article-title>模板方法</h2></div></a></article><article><a href=/p/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/><div class=article-details><h2 class=article-title>状态模式</h2></div></a></article><article><a href=/p/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/><div class=article-details><h2 class=article-title>策略模式</h2></div></a></article></div></div></aside><footer class=site-footer><section class=copyright>&copy;
+2023 杂笔随记</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.16.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><script src=https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js></script><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
