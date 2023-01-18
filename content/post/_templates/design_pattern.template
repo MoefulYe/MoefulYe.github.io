@@ -1,0 +1,17 @@
+---
+title: <% tp.file.title %>
+description:
+draft: true
+date: <% tp.date.now("YYYY-MM-DD") %>
+tags: ['面对对象','设计模式']
+categories: ['面对对象']
+---
+## 定义
+## 类图
+```mermaid
+classDiagram
+```
+## c++实现
+## 适用性
+## 效果
+## 例子

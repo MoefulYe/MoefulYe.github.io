@@ -3,6 +3,7 @@ title: 'uml类图与类的关系'
 date: 2023-01-08
 tags: ['面对对象','设计模式']
 categories: ['面对对象']
+lastmod: 2023-01-09
 ---
 ## 类的关系
 
@@ -212,12 +213,12 @@ A ..> B : A依赖B
 
 ```mermaid
 classDiagram
-A --o B :A有B
+B <--o A :A有B
 ```
 
 #### 组合
 
 ```mermaid
 classDiagram
-A --* B :B是A的构成部分
+B <--* A : B是A的一部分
 ```
