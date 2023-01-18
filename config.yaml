@@ -1,6 +1,6 @@
 baseurl: https://moefulye.github.io
 theme: hugo-theme-stack
-paginate: 5
+paginate: 10
 title: 杂笔随记
 
 permalinks:
